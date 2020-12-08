@@ -1,0 +1,54 @@
+.case-studies-list-arch-container {
+    margin: 1rem 0.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    border: 1px solid white;
+    
+    .image {
+        width: 100%;
+        border-radius: 10px;
+
+    }
+    
+
+   
+
+    .separator {
+        margin: 0.5rem 0.2rem;
+      
+    }
+    
+    .post-data {
+        display: flex;
+        margin: 0;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        .data {
+            margin: 0;
+            display: flex;
+          
+        }
+    }
+
+
+    &:hover {
+        transition-duration: 1s;
+        border: 1px solid #a7d7c5;
+        background-color: #a7d7c5;
+        border-radius: 10px;
+           
+        .title {
+           
+            color: white; 
+     
+         }
+
+         .post-data {   
+            .data {
+               color: #010101;
+            }
+        }
+    
+
+    }
+}
