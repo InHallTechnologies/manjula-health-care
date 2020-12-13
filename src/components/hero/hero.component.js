@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import "./hero.styles.scss";
 import record from "../../assets/record.svg";
 import snap from "../../assets/chinese.svg";
 import { useHistory } from "react-router-dom";
 import SAMPLE_FORM_ENTRY from "../../enteties/sampleFormEntry";
-import {IoMdCloseCircle} from 'react-icons/io'
+import { IoMdCloseCircle } from "react-icons/io";
+import captions from "./staticReadingCaptions";
+import questionsList from "../questions/questionList";
+import Questions from "../questions/questions.component";
+import {BsCaretRightFill} from 'react-icons/bs';
 
 const HeroComponent = (props) => {
   const history = useHistory();
@@ -12,74 +16,111 @@ const HeroComponent = (props) => {
   const [videoRecorder, setVideoRecorder] = useState(null);
   const [videoStream, setVideoStream] = useState(null);
   const [videoChunks, setVideoChunks] = useState([]);
-    
-  const [sampleRequest, setSampleRequest] = useState(SAMPLE_FORM_ENTRY)
+
+  const [sampleRequest, setSampleRequest] = useState(SAMPLE_FORM_ENTRY);
 
   const [audioRecorder, setAudioReorder] = useState(null);
   const [audioStream, setAudioStream] = useState(null);
   const [audioChunks, setAudioChunks] = useState([]);
 
+  const [snapshotInterval, setSnapshotInterval] = useState(null);
+  const [snapshots, setSnapshots] = useState([]);
+  const [readingCaptions, setReadingCaptions] = useState("");
+  const canvas = useRef(null);
+
   const videoRef = useRef(null);
- 
 
   const handleRecord = async () => {
     if (recordingStatus === "Start Recording") {
       setRecordingStatus("Stop Recording");
-      if (navigator.getUserMedia) {
-        navigator.getUserMedia(
-          { video: { aspectRatio: 2 }, audio: true },
-          (videoStream) => {
-            videoRef.current.srcObject = videoStream;
-            const temp = new MediaRecorder(videoStream);
-            temp.start();
-            setVideoStream(videoStream);
-            setVideoRecorder(temp);
-          },
-          () => {
-            console.log("Something went wrong");
-          }
-        );
+      if (navigator.mediaDevices.getUserMedia) {
+        const videoStream = await navigator.mediaDevices.getUserMedia({
+          video: { aspectRatio: 2 },
+          audio: true,
+        });
+
+        videoRef.current.srcObject = videoStream;
+        const temp = new MediaRecorder(videoStream);
+        temp.start();
+        setVideoStream(videoStream);
+        setVideoRecorder(temp);
+
+        const intv = setInterval(() => {
+          clickImage();
+        }, 5000);
+
+        setSnapshotInterval(intv);
+      } else if (navigator.getUserMedia) {
+        alert("HELLO");
       }
     }
 
     if (recordingStatus === "Stop Recording") {
       setRecordingStatus("Discard");
       videoRecorder.stop();
+      if (snapshotInterval) {
+        clearInterval(snapshotInterval);
+      }
       videoStream.getTracks().forEach((track) => {
         track.stop();
       });
     }
 
-    if (recordingStatus === "Discard"){
-        setSampleRequest([]);
-        setVideoStream(null);
-        setVideoRecorder(null);
-        setSampleRequest({...sampleRequest, videoFile:""});
-        setRecordingStatus("Start Recording");
-        
-        
+    if (recordingStatus === "Discard") {
+      setSampleRequest([]);
+      setVideoStream(null);
+      setVideoRecorder(null);
+      setSampleRequest({ ...sampleRequest, videoFile: "", snapshots: [] });
+      setRecordingStatus("Start Recording");
     }
   };
 
   if (videoRecorder) {
     videoRecorder.ondataavailable = (ev) => {
       setVideoChunks([...videoChunks, ev.data]);
-      console.log("CHUNK")
+      console.log("CHUNK");
     };
 
     videoRecorder.onstop = (ev) => {
       const blob = new Blob(videoChunks, { type: "video/mp4" });
       setVideoChunks([]);
       const URL = window.URL.createObjectURL(blob);
-      console.log("STOP")
-      setSampleRequest({...sampleRequest, videoFile:URL});
+      console.log("STOP");
+      setSampleRequest({ ...sampleRequest, videoFile: URL });
     };
   }
+
+  const clickImage = () => {
+    const ctx = canvas.current.getContext("2d");
+
+    ctx.drawImage(videoRef.current, 10, 10);
+
+    canvas.current.toBlob(
+      async (blob) => {
+        const imageUrl = await URL.createObjectURL(blob);
+        console.log("HELLO WORLD");
+        setSampleRequest((sampleRequest) => {
+          return {
+            ...sampleRequest,
+            snapshots: [...sampleRequest.snapshots, imageUrl],
+          };
+        });
+      },
+      "image/png",
+      0.95
+    );
+  };
+
+  useEffect(() => {
+    const randomNumber = Math.floor(Math.random() * 5);
+    console.log(randomNumber);
+    setReadingCaptions(captions[randomNumber].content);
+  }, []);
 
   return (
     <div className="hero-container">
       <div className="search-container">
-        <h2 className="hero-message">Maternal image based progress detector</h2>
+        <h2 className="hero-message">Maternal Image Based Progress Detector</h2>
         <div className="search">
           <input className="search-bar" type="text" placeholder="Search here" />
           <button className="search-button">Search</button>
@@ -89,51 +130,46 @@ const HeroComponent = (props) => {
       <div className="video-container">
         <div className="captions-container">
           <p>Read me while recording</p>
-          <p className="captions">
-            Don't forget that gifts often come with costs that go beyond their
-            purchase price. When you purchase a child the latest smartphone,
-            you're also committing to a monthly phone bill. When you purchase
-            the latest gaming system, you're likely not going to be satisfied
-            with the games that come with it for long and want to purchase new
-            titles to play. When you buy gifts it's important to remember that
-            some come with additional costs down the road that can be much more
-            expensive than the initial gift itself.
-          </p>
+          <p className="captions">{readingCaptions}</p>
         </div>
 
         <div className="video">
           <h2 className="section-title">Please record your video/audio</h2>
           <div className="video-player">
             <div className="snapshots-container">
-              <img src={snap} alt="Snapshot" className="snap" />
-              <img src={snap} alt="Snapshot" className="snap" />
-              <img src={snap} alt="Snapshot" className="snap" />
+              {sampleRequest.snapshots.map((image) => {
+                return (
+                  <img
+                    src={image}
+                    alt="Snapshot"
+                    key={image}
+                    className="snap"
+                  />
+                );
+              })}
             </div>
 
-            {
-                !sampleRequest.videoFile?
-                <video muted autoPlay ref={videoRef} className="webcam-view" />
-                :
-                null
-            }
+            {!sampleRequest.videoFile ? (
+              <video muted autoPlay ref={videoRef} className="webcam-view" />
+            ) : null}
 
-            {
-                sampleRequest.videoFile?
-                <video autoPlay controls src={sampleRequest.videoFile} className="webcam-view" />
-                :
-                null
-            }
-            
+            {sampleRequest.videoFile ? (
+              <video
+                autoPlay
+                controls
+                src={sampleRequest.videoFile}
+                className="webcam-view"
+              />
+            ) : null}
 
             <div className="video-controllers" onClick={handleRecord}>
               <div className="record-start-stop-container">
-                {
-                    recordingStatus === "Discard"?
-                    <IoMdCloseCircle size="30" color="#dd523c" />
-                    :
-                    <img src={record} alt="Start Recoding" className="record" />
-                }
-                
+                {recordingStatus === "Discard" ? (
+                  <IoMdCloseCircle size="30" color="#dd523c" />
+                ) : (
+                  <img src={record} alt="Start Recoding" className="record" />
+                )}
+
                 <p className="record-label">{recordingStatus}</p>
               </div>
             </div>
@@ -143,22 +179,62 @@ const HeroComponent = (props) => {
 
       <div className="user-message-container">
         <textarea
-          placeholder="Enter a message here..... (Optional)"
+          placeholder="Your thought for the day..... (Optional)"
           className="user-message"
           value={sampleRequest.comment}
-          onChange={(event) => {setSampleRequest({...setSampleRequest, comment:event.target.value})}}
+          onChange={(event) => {
+            setSampleRequest({
+              ...setSampleRequest,
+              comment: event.target.value,
+            });
+          }}
         />
         <div className="user-message-controls">
-          <button className="submit-button" onClick={() => {sampleRequest.videoFile?history.push({pathname:"/questionnaire",state:{request: sampleRequest}}):alert("Please record the video first")}}>Submit</button>
-
-          {/* <button
-            onClick={() => {
-              history.push("/questionnaire");
-            }}
+          <button
             className="submit-button"
+            onClick={() => {
+              sampleRequest.videoFile
+                ? history.push({
+                    pathname: "/questionnaire",
+                    state: { request: sampleRequest },
+                  })
+                : alert("Please record the video first");
+            }}
           >
-            Take a questionnaire
-          </button> */}
+            Submit
+          </button>
+
+          <p
+            className="submit-tag"
+            onClick={() => {
+              history.push({
+                pathname: "/questionnaire",
+                state: { request: sampleRequest },
+              });
+            }}
+          >
+            Take Questionnaire
+          </p>
+        </div>
+
+        <div className="questions">
+          {questionsList.map((item, index) => {
+            if(index < 2){
+              return (
+              <Questions
+                key={item.question}
+                question={item.question}
+                options={item.options}
+                sampleRequest={sampleRequest}
+                setSampleRequest={setSampleRequest}
+              />
+            );
+            }
+          })}
+          <div  style={{display:"flex", justifyContent:"center", alignItems:"center", cursor:'pointer', marginTop:"-2rem"}} onClick={() => {history.push({pathname:'/questionnaire', state:{request:sampleRequest}})}}>
+            <p>Read More</p>
+            <BsCaretRightFill />
+          </div>
         </div>
       </div>
 
@@ -185,8 +261,30 @@ const HeroComponent = (props) => {
           </ul>
         </div>
       </div>
+      
+      <canvas
+        style={{ display: "none" }}
+        ref={canvas}
+        width="500"
+        height="500"
+      ></canvas>
     </div>
   );
 };
 
 export default HeroComponent;
+
+// (videoStream) => {
+//   videoRef.current.srcObject = videoStream;
+//   const temp = new MediaRecorder(videoStream);
+//   if (!temp){
+//     alert("I AM NOT THERE")
+//   }
+//   temp.start();
+//   setVideoStream(videoStream);
+//   setVideoRecorder(temp);
+// },
+
+// () => {
+//   console.log("Something went wrong");
+// }

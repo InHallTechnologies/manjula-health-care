@@ -2,19 +2,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem;
+    
     background: #72b198;
     .logo {
         margin: 0;
         color: white;
         font-weight: 100;
+        padding: 0rem 1.5rem;
       
     }
 
     .separator {
-        width: 1px;
-        background: white;
-        margin: 0 1.5rem;
+       
+        height: 100%;
+       
     }
 
     .mobile-navigation {
@@ -27,16 +28,38 @@
 
     .navigation {
         display: flex;
+        align-items: center;
         .nav-item {
             margin: 0 2rem;
             color: white;
             cursor: pointer;
-            font-weight: 100;
+            font-weight: 700;
             text-decoration: none;
+
         }
         .nav-item:hover {
           
         }
+
+        .profile-circle {
+            color: white;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #507c6b;
+            border: solid 10px #507c6b;
+            width: 180px;
+            justify-content: center;
+            cursor: pointer;
+            .user-name {
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .mobile-view-logout {
+        display: none
     }
 }
 
@@ -47,7 +70,7 @@
 
 @media(max-width:900px){
     .navigation-container {
-        
+        padding: 1.2rem 0;
         .logo {
            
         }   
@@ -66,6 +89,11 @@
         .hamburger-container {
             display: flex;
            z-index: 20;
+           margin-right:10px;
+
+           .profile-icon {
+               margin: 0 1.5rem;
+           }
            
             .nav-container {
                 .mobile-navigation {
@@ -95,7 +123,29 @@
             }
            
         }
+
+        .mobile-view-logout {
+            top: 70px;
+            position:absolute;
+            display: flex;
+            background-color: #72b198;
+            justify-content: flex-end;
+            align-items: center;
+           
+            color: white;
+            width: 100%;
+            font-weight: bold;
+            .name {
+                
+            }
+
+            .logout {
+                margin: 1.2rem 25px
+            }
+        }
         
     }
+
+   
      
 }

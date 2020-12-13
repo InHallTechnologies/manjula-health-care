@@ -17,7 +17,7 @@ const CaseStudies = (props) => {
             <NavigationBar />  
 
             <div className='case-studies'>
-                <h2 className='title'>Learn from our case studies</h2>
+                <h2 className='title'>Learn from my resources/case studies</h2>
 
                 <div className='case-studies-list'>
                     {

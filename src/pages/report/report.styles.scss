@@ -1,0 +1,47 @@
+.report-container {
+    .title-container {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        .title {
+            margin: 0 1.1rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+    }
+
+    .graphs-container {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 2rem 0;
+        .graph-holder {
+            width: 400px;
+        }
+    }
+}
+
+@media(max-width:900px){
+
+    .report-container {
+        .title-container {
+            flex-direction: column;
+            .title {
+                margin-top: 1.5rem;
+            }
+            .thumbs-up {
+                width: 300px;
+            }
+        }
+    
+        .graphs-container {
+            flex-direction: column;
+            align-items: center;
+            .graph-holder {
+                margin-top: 20px;
+                width: 320px;
+                height: 320px;
+            }
+        }
+    }
+
+}

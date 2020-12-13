@@ -1,0 +1,25 @@
+.custom-input-container {
+    margin-top: 20px;
+    .tag {
+        margin: 0 0 0.5rem 0.5rem;
+
+    }
+
+    .custom-input {
+       border: #d3e7e0 solid 2px;
+       padding: 0.5rem 1rem;
+       border-radius: 10px;
+       width:300px;
+    }
+    .custom-input:focus {
+        border: #72b198 solid 2px;
+        outline: none;
+    }
+
+    .error-text {
+        margin: 0.2rem 0.4rem;
+        font-size: 0.9rem;
+        color: #ff0033;
+       
+    }
+}

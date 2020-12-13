@@ -1,14 +1,18 @@
-import React from 'react';
-import FAQ from '../components/faq/faq.component';
+import React, { createRef, useContext, useEffect, useState } from 'react';
 import HeroComponent from '../components/hero/hero.component';
 import NavigationBar from '../components/navigation/navigation-bar.component';
 import './home.styles.scss'
 
 const HomePage = (props) => {
+
+   
     return(
         <div className='home-container'>
-            <NavigationBar />
+            <NavigationBar  />
             <HeroComponent />
+
+          
+
             {/* <FAQ /> */}
 
             {/* <div className='footer'>

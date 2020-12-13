@@ -5,6 +5,7 @@
     display: flex;
     border-radius: 10px;
     flex-direction: column;
+  
     
     .question {
         margin: 0;
@@ -26,7 +27,7 @@
 
 
 
-@media(max-width:900px){
+@media(max-width:1000px){
     .question-container {
         background-color: #dff7ee;
         margin: 2rem ;

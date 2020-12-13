@@ -1,7 +1,31 @@
 .home-container {
+
+    .mobile-view-logout {
+        display: none;
+    }
     .footer {
         margin-top: 2rem;
         height: 150px;
         background: #5b8b87;
+    }
+}
+
+
+@media(max-width:900px) {
+    .home-container {
+
+        .mobile-view-logout {
+            display: flex;
+            background-color: #72b198;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 1.2rem;
+            color: white;
+            font-weight: bold;
+            .name {
+                margin: 0 25px;
+            }
+        }
+       
     }
 }
