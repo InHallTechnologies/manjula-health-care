@@ -1,0 +1,80 @@
+.doctor-onboard-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    width: 100%;
+    .doctor-onboard-content {
+        background-color: white;
+        width: 70%;
+        
+        border-radius: 20px;
+        text-align: center;
+        padding: 1.6rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 2px 2px 60px 10px rgb(223, 223, 223);
+        .progress-indicator {
+            display: flex;
+            justify-content: space-between;
+            
+            .indicator{
+               
+                width: 100%;
+                margin: 0 0.5rem;
+                
+                padding: 0.6rem 0;
+                
+            }
+
+            .selected {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #5a8a86;
+            }
+
+            
+        }
+
+        .form-control {
+            display: flex;
+            
+            padding: 0.5rem 2rem;
+        }
+    }
+}
+
+@media(max-width:1000px){
+    .doctor-onboard-form-container {
+        .doctor-onboard-content {
+            padding: 1.6rem 0rem;
+            width: 100%;
+          
+            height: unset;
+            box-shadow: 0;
+            border-radius: 0;
+            .progress-indicator {
+                .indicator{
+               
+                    width: 100%;
+                    margin: 0 0.2rem;
+                    font-size: 0.9rem;
+                    padding: 0.4rem 0;
+                    
+                }
+    
+                .selected {
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                    color: #5a8a86;
+                }
+            }
+
+            .form-control {
+               
+                padding: 0;
+            }
+        }
+    }
+}

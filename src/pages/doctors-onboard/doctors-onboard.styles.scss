@@ -1,0 +1,132 @@
+.doctor-onboard-container {
+  display: flex;
+  flex-direction: row;
+
+  .illustration-container {
+    width: 60%;
+    height: 100vh;
+    .illustration {
+      height: 100vh;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .other-info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2% 2% 0% 2%;
+    .illustration-blurred {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -100;
+      object-fit: cover;
+      opacity: 0.2;
+    }
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    padding: 6% 2% 0% 2%;
+    .heading {
+      font-weight: 700;
+      margin: 0;
+      padding: 0;
+      font-size: 2rem;
+    }
+    .sub-heading {
+      margin: 0;
+      padding: 0;
+      margin-top: 15px;
+      text-align: center;
+    }
+    .top-line-element {
+      width: 200px;
+      height: 2px;
+      border-radius: 10px;
+      background-color: #72b198;
+      margin-top: 20px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 70px;
+
+      width: 400px;
+      .get-started {
+        padding: 0.8rem 2rem;
+        background-color: #72b198;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    }
+
+    .bottom-line-element {
+      width: 200px;
+      height: 2px;
+      border-radius: 10px;
+      background-color: #ccc;
+      margin-top: 100px;
+    }
+
+    .legal-container {
+      text-align: center;
+      .legal {
+        color: #72b198;
+        cursor: pointer;
+        &:hover {
+          transition-duration: 1s;
+          color: #446d5d;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .doctor-onboard-container {
+    .illustration-container {
+      width: 40%;
+    }
+    .form-container {
+      width: 60%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .doctor-onboard-container {
+    .illustration-container {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      position: absolute;
+      z-index: -100;
+      opacity: 0.1;
+     
+    }
+    .form-container {
+      width: 100%;
+      padding: 15% 10% 0% 10%;
+      .form {
+       
+        width: 100%;
+      }
+    }
+    .other-info {
+      padding: 0;
+    }
+  }
+}

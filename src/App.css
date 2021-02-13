@@ -5,3 +5,14 @@ html {
   color: #010101;
   font-family: 'Karla', sans-serif;
 }
+.submit-button {
+  margin: 1.5rem 0.6rem;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  width: 230px;
+  background-color: #5a8a86;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+}

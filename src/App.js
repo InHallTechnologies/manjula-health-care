@@ -11,6 +11,8 @@ import QuestionnaireScreen from './pages/questionnaire/questionnaire.component';
 import { VscLoading } from 'react-icons/vsc';
 import CONTEXT_TYPES from './context/contectType';
 import ReportScreen from './pages/report/report.component';
+import DoctorsOnboard from './pages/doctors-onboard/doctors-onboard.component';
+import LandingPage from './pages/landing-page/landing-page.component';
 
 const App = props => {
 
@@ -43,16 +45,18 @@ const App = props => {
 
   }
 
-  console.log("I AM HERE")
+ 
   return (
     <div className="App">
       <Switch>
-        <Route path='/' exact component={HomePage}/>
+        <Route path='/' exact component={LandingPage} /> 
+        <Route path='/care' exact component={HomePage}/>
         <Route path='/case-studies' exact component={CaseStudies} />
         <Route path='/case-studies/:id' component={CaseStudiesDetails} />
         <Route path='/questionnaire' component={QuestionnaireScreen} />
         <Route path={'/login'} component={LoginScreen} />
         <Route path={'/reports'} component={ReportScreen} />
+        <Route path={'/onboard'} component={DoctorsOnboard}/>
       </Switch>
     </div>
   );

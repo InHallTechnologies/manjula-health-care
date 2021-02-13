@@ -6,10 +6,15 @@ import Questions from "../../components/questions/questions.component";
 import CONTEXT_TYPES from "../../context/contectType";
 import Context from "../../context/context";
 import SAMPLE_FORM_ENTRY from "../../enteties/sampleFormEntry";
+import { auth, database, storage } from "../../firebase/firebase-handler";
 import "./questionnaire.styles.scss";
+
+
 const QuestionnaireScreen = (props) => {
   const [sampleRequest, setSampleRequest] = useState(SAMPLE_FORM_ENTRY);
   const [globalState, dispatchForGlobalState] = useContext(Context);
+  const [uploadingDetails, setUploadingDetails] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,20 +25,56 @@ const QuestionnaireScreen = (props) => {
     
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (globalState.userData) {
-      alert("Your request has been submitted successfully");
+     
+      const {sampleRequest} = globalState;
+      console.log(sampleRequest)
+      setUploadingDetails(true);
+      const imageUrls = [];
+      const firebaseUser = auth.currentUser;
+      //upload Image
+      sampleRequest.snapshots.forEach( async (imageBlob, index) => {
+        const imageResponse = await fetch(imageBlob);
+        const imageBlobLoaded = await imageResponse.blob();
+        const imageSnap =  await storage.ref("ALL_ENTRIES").child(sampleRequest.entryId).child(`IMAGE${index+1}`).put(imageBlobLoaded);
+        const IMAGE_URL = await imageSnap.ref.getDownloadURL();
+        imageUrls.push(IMAGE_URL);
+        setUploadProgress(uploadProgress + 5);
+      })
+
+      //upload Video
+      const response = await fetch(sampleRequest.videoFile);
+      const videoBlob = await response.blob();
+      const videoSnap =  await storage.ref("ALL_ENTRIES").child(sampleRequest.entryId).child("VIDEO").put(videoBlob);
+      const videoUrl = await videoSnap.ref.getDownloadURL();
+      setUploadProgress(uploadProgress + 10);
+
+
+      const FINAL_REQUEST = {
+        ...sampleRequest,
+        snapshots:imageUrls,
+        videoFile:videoUrl,
+        name:firebaseUser.displayName,
+        emailId:`${firebaseUser.email}`,
+      }
+      setUploadProgress(90);
+      try {
+        await database.ref("ALL_ENTRIES").child(FINAL_REQUEST.entryId).set(FINAL_REQUEST);
+        alert("Request Submitted");
+      } catch(e) {
+        console.log(e)
+      }
+
+      setUploadProgress(100);
+      setUploadingDetails(false);
+
     } else {
       alert("Please login to submit the form");
     }
   };
 
-  //    if (!props.location.state){
-  //     return(
-  //         <Redirect to='/' />
-  //     )
-  //    }
-
+  
   return (
     <div className="questionnaire-container">
       <NavigationBar />
@@ -57,10 +98,18 @@ const QuestionnaireScreen = (props) => {
             );
           })}
         </div>
-
-        <button className="submit" onClick={handleSubmit}>
+        {
+          !uploadingDetails?
+          <button className="submit" onClick={handleSubmit}>
           Submit
-        </button>
+          </button>
+          :
+          <div>
+            <label for="uploadProgress" >Saving details</label>
+            <progress id="uploadProgress" value={uploadProgress} max={100} style={{marginLeft:13}} />
+          </div>
+        }
+        
 
         <div className="meta-data-container">
           <p className="title">What happens next?</p>

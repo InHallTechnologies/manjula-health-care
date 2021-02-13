@@ -1,5 +1,5 @@
 import React, {  useContext, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import InputComponent from "../../components/input/input.component";
 import { auth } from "../../firebase/firebase-handler";
 import { VscLoading } from 'react-icons/vsc';
@@ -22,16 +22,16 @@ const LoginScreen = (props) => {
     password: "",
   });
   const [authType, setAuthType] = useState("login");
-  const [redirect, setRedirect] = useState({to:""})
+ 
   const [loading, setLoading] = useState(true);
   const [globalState, dispatchForGlobalState] = useContext(Context);
-
+  const history = useHistory();
   useEffect(() => {
     auth.onAuthStateChanged((user) =>{
         if (user){
-            setRedirect({to:'/'})
-        }else{
-
+            // setRedirect({to:'/'})
+          
+           history.goBack();
         }
         setLoading(false)
     })
@@ -113,12 +113,12 @@ const LoginScreen = (props) => {
 
   return (
     <div className="login-container">
-    {
+    {/* {
         redirect.to?
         <Redirect to={redirect.to} />
         :
         null
-    }
+    } */}
       <div className="logo-container">
         <h1 className="logo">LOGO</h1>
         <h3 className="tagline">Maternal Image Based Progress Detector</h3>

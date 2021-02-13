@@ -1,14 +1,15 @@
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, {  useContext, useEffect, useRef, useState, createRef } from "react";
 import "./hero.styles.scss";
 import record from "../../assets/record.svg";
-import snap from "../../assets/chinese.svg";
 import { useHistory } from "react-router-dom";
-import SAMPLE_FORM_ENTRY from "../../enteties/sampleFormEntry";
 import { IoMdCloseCircle } from "react-icons/io";
 import captions from "./staticReadingCaptions";
 import questionsList from "../questions/questionList";
 import Questions from "../questions/questions.component";
 import {BsCaretRightFill} from 'react-icons/bs';
+import Context from "../../context/context";
+import CONTEXT_TYPES from "../../context/contectType";
+import { database } from "../../firebase/firebase-handler";
 
 const HeroComponent = (props) => {
   const history = useHistory();
@@ -17,7 +18,7 @@ const HeroComponent = (props) => {
   const [videoStream, setVideoStream] = useState(null);
   const [videoChunks, setVideoChunks] = useState([]);
 
-  const [sampleRequest, setSampleRequest] = useState(SAMPLE_FORM_ENTRY);
+  const [{sampleRequest}, setSampleRequest] = useContext(Context);
 
   const [audioRecorder, setAudioReorder] = useState(null);
   const [audioStream, setAudioStream] = useState(null);
@@ -67,10 +68,10 @@ const HeroComponent = (props) => {
     }
 
     if (recordingStatus === "Discard") {
-      setSampleRequest([]);
+      setSampleRequest({type:CONTEXT_TYPES.setSampleRequest, payload:[]});
       setVideoStream(null);
       setVideoRecorder(null);
-      setSampleRequest({ ...sampleRequest, videoFile: "", snapshots: [] });
+      setSampleRequest({type:CONTEXT_TYPES.setSampleRequest, payload:{...sampleRequest, videoFile: "", snapshots: [] }});
       setRecordingStatus("Start Recording");
     }
   };
@@ -81,12 +82,12 @@ const HeroComponent = (props) => {
       console.log("CHUNK");
     };
 
-    videoRecorder.onstop = (ev) => {
+    videoRecorder.onstop = async (ev) => {
       const blob = new Blob(videoChunks, { type: "video/mp4" });
       setVideoChunks([]);
       const URL = window.URL.createObjectURL(blob);
       console.log("STOP");
-      setSampleRequest({ ...sampleRequest, videoFile: URL });
+      setSampleRequest({type:CONTEXT_TYPES.setSampleRequest, payload:{ ...sampleRequest, videoFile: URL }});
     };
   }
 
@@ -98,13 +99,10 @@ const HeroComponent = (props) => {
     canvas.current.toBlob(
       async (blob) => {
         const imageUrl = await URL.createObjectURL(blob);
-        console.log("HELLO WORLD");
-        setSampleRequest((sampleRequest) => {
-          return {
-            ...sampleRequest,
-            snapshots: [...sampleRequest.snapshots, imageUrl],
-          };
-        });
+        const {snapshots} = sampleRequest;
+        snapshots.push(imageUrl)
+        setSampleRequest({type:CONTEXT_TYPES.setSampleRequest, payload:{...sampleRequest, snapshots: snapshots}});
+        
       },
       "image/png",
       0.95
@@ -113,8 +111,9 @@ const HeroComponent = (props) => {
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 5);
-    console.log(randomNumber);
     setReadingCaptions(captions[randomNumber].content);
+    const REQUEST_ID =  database.ref("ALL_ENTRIES").push().key;;
+    setSampleRequest({type:CONTEXT_TYPES.setSampleRequest, payload:{...sampleRequest, entryId:REQUEST_ID }});
   }, []);
 
   return (
@@ -137,7 +136,9 @@ const HeroComponent = (props) => {
           <h2 className="section-title">Please record your video/audio</h2>
           <div className="video-player">
             <div className="snapshots-container">
-              {sampleRequest.snapshots.map((image) => {
+              {sampleRequest.snapshots 
+              && 
+              sampleRequest.snapshots.map((image) => {
                 return (
                   <img
                     src={image}
@@ -157,6 +158,7 @@ const HeroComponent = (props) => {
               <video
                 autoPlay
                 controls
+                ref={videoRef}
                 src={sampleRequest.videoFile}
                 className="webcam-view"
               />
@@ -183,10 +185,7 @@ const HeroComponent = (props) => {
           className="user-message"
           value={sampleRequest.comment}
           onChange={(event) => {
-            setSampleRequest({
-              ...setSampleRequest,
-              comment: event.target.value,
-            });
+            setSampleRequest({type:CONTEXT_TYPES.setSampleRequest, payload:{...sampleRequest,comment: event.target.value}});
           }}
         />
         <div className="user-message-controls">

@@ -8,6 +8,7 @@ import CONTEXT_TYPES from "../../context/contectType";
 import { FaGripLinesVertical } from "react-icons/fa";
 import { AiOutlineLogout } from 'react-icons/ai';
 import { auth } from "../../firebase/firebase-handler";
+import logo from '../../assets/logo.svg';
 
 const NavigationBar = ({ location, }) => {
   const [redirects, setRedirects] = useState({ to: "" });
@@ -23,8 +24,8 @@ const NavigationBar = ({ location, }) => {
         await auth.signOut()
         setShowLogout(false);
     }else{
-        setRedirects({to:'/login'})
-        // history.replace("/login")
+        // setRedirects({to:'/login'})
+        history.push("/login")
     }
     
   }
@@ -33,7 +34,7 @@ const NavigationBar = ({ location, }) => {
     if (globalState.userData){
         await auth.signOut();
     }else {
-        history.replace('/login')
+        history.push('/login')
     }
 }
 
@@ -44,8 +45,8 @@ const NavigationBar = ({ location, }) => {
 
   return (
     <div className="navigation-container">
-      {redirects.to ? <Redirect to={redirects.to} /> : null}
-      <h1 className="logo">LOGO</h1>
+      {/* {redirects.to ? <Redirect to={redirects.to} /> : null} */}
+      <img  src={logo} alt='logo' className="logo"/>
       <div className="hamburger-container">
 
         <div className='profile-icon' onClick={() => {setMobileViewLogout(!mobileViewlogout)}}>

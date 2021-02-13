@@ -1,9 +1,19 @@
+import questionsList from "../components/questions/questionList"
+import { getDate, getTime } from "../firebase/getTimeAndDate"
+
+var questionnaireArchive = {}
+
+questionsList.forEach((question) => {
+    questionnaireArchive[question.question] = ""
+})
+
 const SAMPLE_FORM_ENTRY = {
     entryId:"",
     name:"",
     emailId:"",
     userId:"",
-    date:"",
+    date:getDate(),
+    time:getTime(),
     audioFile:"",
     videoFile:"",
     snapshots:[],
@@ -14,9 +24,7 @@ const SAMPLE_FORM_ENTRY = {
         audioSize:"",    
     } ,
 
-    questionnaire:{
-        
-    }
+    questionnaire:questionnaireArchive
 }
 
 export default SAMPLE_FORM_ENTRY

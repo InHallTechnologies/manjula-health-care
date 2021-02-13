@@ -1,15 +1,31 @@
 .custom-input-container {
     margin-top: 20px;
-    .tag {
-        margin: 0 0 0.5rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    
 
+    .tag {
+        margin: 0 0 0.1rem 0.5rem;
+        align-self: flex-start;
     }
 
     .custom-input {
        border: #d3e7e0 solid 2px;
        padding: 0.5rem 1rem;
        border-radius: 10px;
-       width:300px;
+    }
+    .check-boxes-container {
+       display: flex;
+       flex-wrap: wrap;
+        .check-bx {
+            margin-right: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .check-bx-name {
+                margin-left: 0.5rem;
+            }
+        }
     }
     .custom-input:focus {
         border: #72b198 solid 2px;
