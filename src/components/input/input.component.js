@@ -28,9 +28,10 @@ const InputComponent= ({tag, placeholder, type, onChange, value ,name, style, er
                <div className='check-boxes-container'>
                 {
                     items.map((item) => {
+                        console.log(items, item, items.includes(item))
                         return (
                            <div className='check-bx'>
-                           <input type='checkbox' value={item} />
+                            <input type='checkbox' name={item} onChange={onChange} checked={value.includes(item)}  />
                             <p className='check-bx-name' >{item}</p>
                            </div>
                         )

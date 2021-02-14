@@ -1,0 +1,150 @@
+.signup-container {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    .status-bar-container{
+        margin: 0;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        background-color: #F9f9f9;
+        .enter-details-label {
+            font-weight: bold;
+            color: #222;
+            font-size: 1.2rem;
+            margin-right: 100px;
+        }
+        .profile-details {
+            display: flex;
+            align-items: center;
+            .profile-icon {
+                margin: 0 1rem;
+            }
+        }
+    }
+
+    .section-title {
+        padding: 2rem 3rem 0 4rem;
+        background-color: white; 
+        margin: 0; 
+        font-weight: bold;
+        color: #115e57;
+    }
+
+    .picture-details {
+        padding:2rem 4rem;
+        display: flex;
+        justify-content: center;
+        .profile-picture-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            cursor: pointer;
+            .profile-icon {
+                width: 90px;
+                height: 90px;
+                border-radius: 100px;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .personal-details {
+        background-color: white;
+        padding: 0rem 3rem;
+        display: grid;
+        margin: 0;
+        grid-template-columns: repeat( auto-fit, minmax(550px, 1fr) );
+    }
+
+    .personal-details-label {
+        padding-top: 4rem;
+    }
+
+    .work-details{
+        background-color: white;
+        padding: 0rem 3rem 1rem 3rem;
+        display: grid;
+        grid-template-columns: repeat( auto-fit, minmax(550px, 1fr) );
+        .upload-resume {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: #d3e7e0 solid 2px;
+            border-radius: 10px;
+            height: 32px;
+            margin-top: 38px;
+            .resume-label {
+                margin: 0 1.2rem;
+                max-width: 300px;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .additional-details-selector-container {
+        display: flex;
+        padding: 0.2rem 5rem;
+        
+        align-items: center;
+        .additional-details-label {
+            margin: 1rem 1rem;
+        }
+    }
+
+    .additional-details {
+        .additional-details-label {
+            padding: 0 1rem;
+          
+        }
+        background-color: white;
+        padding: 2rem 3rem;
+        min-width: 550px;
+    }
+
+    .submit-profile {
+        margin: 0 50%;
+        transform: translateX(-50%);
+        margin-bottom: 100px;
+        margin-top: 70px;
+    }
+
+  
+}
+
+@media(max-width:800px){
+    .signup-container {
+        .status-bar-container{
+            .profile-details {
+                display: flex;
+                align-items: center;
+                .profile-icon {
+                    margin: 0 1rem 0 0;
+                }
+            }
+        }
+        .additional-details {
+            min-width: 350px;
+        }
+        
+        .additional-details-selector-container {
+           
+            padding: 0.2rem 2rem;
+          
+            
+        }
+    }
+}
+
+@media(max-width:700px){
+    .signup-container {
+       .details-section {
+        grid-template-columns: repeat( auto-fit, minmax(300px, 1fr));
+        padding: 0rem 0.3rem;
+       }
+    }
+}

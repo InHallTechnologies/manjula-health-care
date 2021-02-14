@@ -13,6 +13,7 @@ import CONTEXT_TYPES from './context/contectType';
 import ReportScreen from './pages/report/report.component';
 import DoctorsOnboard from './pages/doctors-onboard/doctors-onboard.component';
 import LandingPage from './pages/landing-page/landing-page.component';
+import SignupScreen from './pages/signup/signup.component';
 
 const App = props => {
 
@@ -57,6 +58,7 @@ const App = props => {
         <Route path={'/login'} component={LoginScreen} />
         <Route path={'/reports'} component={ReportScreen} />
         <Route path={'/onboard'} component={DoctorsOnboard}/>
+        <Route path={'/signup'}  component={SignupScreen} />
       </Switch>
     </div>
   );

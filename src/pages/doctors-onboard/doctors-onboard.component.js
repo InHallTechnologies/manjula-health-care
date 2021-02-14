@@ -1,75 +1,79 @@
 import React, { useEffect, useState } from "react";
 import "./doctors-onboard.styles.scss";
-import doctor from "../../assets/doctor.png";
+import doctor from "../../assets/doctor.jpg";
 import InputComponent from "../../components/input/input.component";
-import anime from "animejs/lib/anime.es.js";
-import DoctorOnBoardForm from "../../components/doctor-onboard-form/doctor-onboard.form.component";
-import SampleOnBoardEntity from "./onboard.entity";
+import { auth } from "../../firebase/firebase-handler";
+import { VscLoading } from 'react-icons/vsc'
+import { useHistory } from "react-router-dom";
 
-const   DoctorsOnboard = (props) => {
-  const [startOnBoarding, setStartOnBoarding] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [doctorEntity, setDoctorEntity] = useState(SampleOnBoardEntity)
+const DoctorsOnboard = (props) => {
+  const [credentials, setCredentials] = useState({emaild:"", password:''})
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
   useEffect(() => {
-    if (startOnBoarding) {
-      anime({
-        targets: ".illustration-container",
-        translateX: [0, -550],
-        delay: "100",
-        backgroundColor: "#FFF",
-        duration: 700,
-        opacity: [1, 0],
-        complete: function (anim) {
-          setShowForm(true);
-        },
-      });
+    auth.onAuthStateChanged((user) => {
+      if (user){
+        history.push('/signup')
+      }
+    })
 
-      
-    }
-  }, [startOnBoarding]);
+  }, [])
 
-  const startOnBoardingClicked = () => {
-    setStartOnBoarding(true);
-  };
+  const handleLogin = () => {
+    (async () => {
+      setLoading(true);
+      try{
+        await auth.signInWithEmailAndPassword(credentials.emaild, credentials.password);
+        setLoading(false);
+       
+      }catch(err){
+        console.log(err);
+        alert("Invalid credentials")
+        setLoading(false);
+      }
+     
+    })();
+  }
+  
+  const handleSignup = () => {
+    (async () => {
+      setLoading(true);
+      try{
+        await auth.createUserWithEmailAndPassword(credentials.emaild, credentials.password);
+        setLoading(false);
+        
+      }catch(err){
+        console.log(err);
+        alert(err.message)
+        setLoading(false);
+      }
+     
+    })();
+  }
+
 
   return (
     <div className="doctor-onboard-container">
-      {showForm ? null : (
-        <div className="illustration-container">
-          <img className="illustration" src={doctor} alt="doctor" />
+      <img className="illustration" src={doctor} alt="doctor" /> 
+      <div className='onboard-forms'>
+        <p className='login-label'>Login to your account</p>
+        <div className='onboard-input-container'>
+          <InputComponent value={credentials.emaild} onChange={(event) =>{setCredentials({...credentials, emaild: event.target.value })}} viewType='TEXT' tag="Email Id" />
+          <InputComponent type='email' value={credentials.password} onChange={(event) =>{setCredentials({...credentials, password: event.target.value })}} viewType="TEXT" tag="Password" type="password" />
+          {
+            !loading
+            ?
+            <button onClick={handleLogin} className='login-button submit-button'>Login</button>
+            :
+            <div className='submit-button login-button '>
+              <VscLoading color='white' size='20' />
+            </div>
+          }
+         
+          <p onClick={handleSignup} className='signup-button'>Create Account</p>
         </div>
-      )}
-
-      {showForm ? (
-        <div className='other-info'>
-        <img className="illustration-blurred" src={doctor} alt="doctor" />
-          <DoctorOnBoardForm  sampleEntity={doctorEntity} setSampleEntity={setDoctorEntity} />
-        </div>
-      ) : (
-        <div className="form-container">
-          <p className="heading">Sign up today</p>
-          <p className="sub-heading">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <div className="top-line-element"></div>
-          <div className="form">
-            <InputComponent value={doctorEntity.name} onChange={(event) => {setDoctorEntity({...doctorEntity,name:event.target.value})}}  tag="Name" name="name" />
-            <InputComponent value={doctorEntity.phoneNumber} onChange={(event) => {setDoctorEntity({...doctorEntity,phoneNumber:event.target.value})}} tag="Phone Number" name="phoneNumber" type="tel" />
-            <button onClick={startOnBoardingClicked} className="get-started">
-              Get Started
-            </button>
-          </div>
-
-          <div className="bottom-line-element"></div>
-          <p className="legal-container">
-            By signing up you agree to our{" "}
-            <span className="legal">Terms and Condition</span> and{" "}
-            <span className="legal">Privacy Policy</span>
-          </p>
-          <p></p>
-        </div>
-      )}
+      </div>
     </div>
   );
 };

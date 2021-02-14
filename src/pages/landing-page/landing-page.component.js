@@ -27,8 +27,7 @@ const LandingPage = (props) => {
         <div className="get-started-container">
           <img className="logo" src={logo} alt="logo" />
           <p className="headlines">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry
+            Passionate Community Providing Brain Health Support and Care for Mother, Child and Family
           </p>
           <button className="get-started submit-button" onClick={() => {history.push('care')}} >Get Started</button>
         </div>
