@@ -1,0 +1,84 @@
+.meet-the-team-container {
+    display: flex;
+    flex-direction: column;
+    .title-bar-container {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        .back-button {
+            cursor: pointer;
+        }
+        .meet-team-label {
+            margin: 0 1em;
+            font-weight: bold;
+            color: #444;
+            font-size: 1.2rem;
+        }
+       
+    }
+    .selected-team {
+        font-weight: normal;
+        margin: 0 1rem;
+        margin-top: 20px;
+        font-weight: bold;
+        color: #444;
+    }
+
+    .category-scroll-bar {
+        display: flex;
+        margin-top: 2rem;
+        justify-content: space-between;
+        align-items: center;
+        scroll-behavior: smooth;
+        .arrow-button {
+            margin: 0 0.5rem 0 1rem;
+            cursor: pointer;
+            
+            
+        }
+        .categories-container {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            white-space: nowrap;
+            width: 96%;
+            .category-content {
+                background-color: #eaeaea;
+                margin: 0 0.8rem;
+                display: flex;
+                align-items: center;
+                padding: 0 1.5rem;
+                border-radius: 30px;
+                cursor: pointer;
+                .category-name {
+                    margin: 0;
+                    padding: 0.8rem 0;
+                }
+            }
+            .selected {
+                background-color: #72b198;
+                color: white;
+                font-weight: bold;
+            }
+        }
+        .categories-container::-webkit-scrollbar {
+            display: none;
+          }
+          
+          /* Hide scrollbar for IE, Edge and Firefox */
+          .categories-container {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+          }
+    }
+
+    .team-holder {
+        display: grid;
+        margin-top: 3rem;
+        grid-template-columns: repeat( auto-fill, minmax(200px, 1fr) );
+        .loading-label {
+            margin: 0 2rem;
+        }
+    }
+    
+}

@@ -5,6 +5,7 @@ import InputComponent from "../../components/input/input.component";
 import { auth } from "../../firebase/firebase-handler";
 import { VscLoading } from 'react-icons/vsc'
 import { useHistory } from "react-router-dom";
+import { RiTeamLine } from 'react-icons/ri';
 
 const DoctorsOnboard = (props) => {
   const [credentials, setCredentials] = useState({emaild:"", password:''})
@@ -57,8 +58,13 @@ const DoctorsOnboard = (props) => {
     <div className="doctor-onboard-container">
       <img className="illustration" src={doctor} alt="doctor" /> 
       <div className='onboard-forms'>
+          <div className='meet-the-tem-container' onClick={() => {history.push('meet-team')}}>
+            <RiTeamLine color='#444' size={24} />
+            <p>Meet the team</p>
+          </div>
         <p className='login-label'>Login to your account</p>
         <div className='onboard-input-container'>
+        
           <InputComponent value={credentials.emaild} onChange={(event) =>{setCredentials({...credentials, emaild: event.target.value })}} viewType='TEXT' tag="Email Id" />
           <InputComponent type='email' value={credentials.password} onChange={(event) =>{setCredentials({...credentials, password: event.target.value })}} viewType="TEXT" tag="Password" type="password" />
           {
@@ -72,6 +78,8 @@ const DoctorsOnboard = (props) => {
           }
          
           <p onClick={handleSignup} className='signup-button'>Create Account</p>
+
+         
         </div>
       </div>
     </div>
