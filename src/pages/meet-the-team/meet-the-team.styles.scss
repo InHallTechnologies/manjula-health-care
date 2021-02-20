@@ -9,10 +9,20 @@
             cursor: pointer;
         }
         .meet-team-label {
-            margin: 0 1em;
+            margin: 0 1rem;
             font-weight: bold;
             color: #444;
             font-size: 1.2rem;
+        }
+
+        .your-profile-label {
+
+            margin-left: 1rem;
+            cursor: pointer;
+            &:hover{
+                transition-duration: 0.2s;
+                font-weight: bold;
+            }
         }
        
     }

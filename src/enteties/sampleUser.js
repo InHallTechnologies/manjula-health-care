@@ -22,5 +22,6 @@ const SAMPLE_USER = {
     hospitalCity:'',
     hospitalState:'',
     hospitalAddress:'',
+    reviewed:false
 }   
 export default SAMPLE_USER;

@@ -4,24 +4,38 @@
     margin: 0;
     .status-bar-container{
         margin: 0;
-        padding: 0 2rem;
+        padding: 0 1.2rem;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         background-color: #F9f9f9;
+        align-items: center;
+        user-select: none;
         .enter-details-label {
             font-weight: bold;
             color: #222;
             font-size: 1.2rem;
             margin-right: 100px;
         }
-        .profile-details {
+
+        .title-bar-container {
             display: flex;
-            align-items: center;
-            .profile-icon {
-                margin: 0 1rem;
+            flex-wrap: wrap-reverse;
+            .meet-team {
+                margin-right: 15px;
             }
+            .profile-details {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                .profile-icon {
+                    margin: 0 1rem;
+                }
+            }
+            display: flex;
+            flex-direction: row;
         }
+       
     }
 
     .section-title {

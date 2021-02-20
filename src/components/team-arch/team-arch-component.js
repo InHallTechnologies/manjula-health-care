@@ -14,7 +14,7 @@ const TeamArch = ({team}) => {
         }
             
             <p className='name'>{team.name.toUpperCase()}</p>
-            <p className='designation'>{team.speciality.toUpperCase()}</p>
+            <p className='designation'>{team.jobTitle.toUpperCase()=== "OTHER"? team.otherJobTitle.toUpperCase():team.jobTitle.toUpperCase()}</p>
         </div>
     )
 }

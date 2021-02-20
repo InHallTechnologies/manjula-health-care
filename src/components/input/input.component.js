@@ -1,7 +1,7 @@
 import React from "react";
 import './input.styles.scss';
 
-const InputComponent= ({tag, placeholder, type, onChange, value ,name, style, errorText, viewType, items}) => {
+const InputComponent= ({tag, placeholder, type, onChange, value ,name, style, errorText, viewType, items, onKeyPressEvent}) => {
 
     if(viewType === "DROP_DOWN"){
         return(
@@ -48,7 +48,7 @@ const InputComponent= ({tag, placeholder, type, onChange, value ,name, style, er
                     tag && <p className='tag'>{tag}</p>
                 }
                
-                <input className='custom-input' placeholder={placeholder} type={type} onChange={onChange}  value={value} name={name} />
+                <input onKeyPress={onKeyPressEvent} className='custom-input' placeholder={placeholder} type={type} onChange={onChange}  value={value} name={name} />
                 {
                     errorText?
                     <p className='error-text'>{errorText}</p>

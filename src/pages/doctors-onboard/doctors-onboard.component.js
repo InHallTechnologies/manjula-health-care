@@ -11,6 +11,7 @@ const DoctorsOnboard = (props) => {
   const [credentials, setCredentials] = useState({emaild:"", password:''})
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const [currentOption, setCurrentOption] = useState("LOGIN");
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -29,12 +30,18 @@ const DoctorsOnboard = (props) => {
         setLoading(false);
        
       }catch(err){
-        console.log(err);
-        alert("Invalid credentials")
+        if (!credentials.emaild){
+          alert("Please enter a valid email Id");
+        }else if (!credentials.password){
+          alert("Please enter your password");
+        }else{
+          alert(err)
+        }
         setLoading(false);
       }
      
     })();
+    
   }
   
   const handleSignup = () => {
@@ -45,12 +52,31 @@ const DoctorsOnboard = (props) => {
         setLoading(false);
         
       }catch(err){
-        console.log(err);
-        alert(err.message)
+        if (!credentials.emaild){
+          alert("Please enter a valid email Id");
+        }else if (!credentials.password){
+          alert("Please enter your password");
+        }else{
+          alert(err)
+        }
         setLoading(false);
       }
      
     })();
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter"){
+      if (currentOption === "LOGIN"){ 
+      handleLogin();
+      }else{
+        handleSignup()
+      }
+    }
+  }
+
+  const handleTNCClicked = () => {
+    window.open("https://firebasestorage.googleapis.com/v0/b/health-wealth-a6ae7.appspot.com/o/TNC%2FTerms%20of%20Service%C2%B7Privacy%20Policy.pdf?alt=media&token=507c8dac-4573-4120-bda4-d09c99b89386")
   }
 
 
@@ -66,19 +92,29 @@ const DoctorsOnboard = (props) => {
         <div className='onboard-input-container'>
         
           <InputComponent value={credentials.emaild} onChange={(event) =>{setCredentials({...credentials, emaild: event.target.value })}} viewType='TEXT' tag="Email Id" />
-          <InputComponent type='email' value={credentials.password} onChange={(event) =>{setCredentials({...credentials, password: event.target.value })}} viewType="TEXT" tag="Password" type="password" />
+          <InputComponent onKeyPressEvent={handleKeyPress} type='email' value={credentials.password} onChange={(event) =>{setCredentials({...credentials, password: event.target.value })}} viewType="TEXT" tag="Password" type="password" />
           {
             !loading
             ?
-            <button onClick={handleLogin} className='login-button submit-button'>Login</button>
+            <button onClick={currentOption==="LOGIN"?handleLogin:handleSignup} className='login-button submit-button'>{currentOption==="LOGIN"?"Login":"Create Account"}</button>
             :
             <div className='submit-button login-button '>
               <VscLoading color='white' size='20' />
             </div>
           }
-         
-          <p onClick={handleSignup} className='signup-button'>Create Account</p>
+          
+          {
+            currentOption === "LOGIN"
+            ?
+            <p style={{textAlign:'center', margin:0, marginTop:20}}>Don't have an account?</p>
+            :
+            <p style={{textAlign:'center', margin:0, marginTop:20}}>Already have an account?</p>
+          }
+          <p onClick={() => {setCurrentOption(currentOption==="LOGIN"?"SIGNUP":"LOGIN")}} className='signup-button'>{currentOption!=="LOGIN"?"Login":"Create Account"}</p>
 
+          <div className='tnc-container'>
+              <p className='tnc-label'>By continuing you agree to our <br/><span className='tnc' onClick={handleTNCClicked}>Terms & Condition and Privacy Policy</span> </p>
+          </div>
          
         </div>
       </div>

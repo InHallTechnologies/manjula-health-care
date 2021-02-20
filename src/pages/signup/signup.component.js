@@ -9,6 +9,9 @@ import { BsUpload } from 'react-icons/bs';
 import { CgFileDocument } from 'react-icons/cg';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
+import { RiTeamLine } from 'react-icons/ri';
+import { AiOutlinePause } from 'react-icons/ai';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 const SignupScreen = () => {
     const [sampleFormEntity, setSampleFormEntity] = useState(SAMPLE_USER);
@@ -19,6 +22,7 @@ const SignupScreen = () => {
     const [resumeUplading, setResumeUploading] = useState(false);
     const firebaseUser = auth.currentUser;
     const history = useHistory();
+    const [fetching, setFetching] = useState(true);
 
 
     useEffect(() => {
@@ -30,7 +34,9 @@ const SignupScreen = () => {
                     USER.skill = [];
                 }
                 setSampleFormEntity(USER);
+                
             }
+            setFetching(false)
         })
     }, [])
 
@@ -97,12 +103,18 @@ const SignupScreen = () => {
             return;
         }
 
+        if (sampleFormEntity.profilePictureUrl === ""){
+            alert("Please upload your profile picture");
+            return
+        }
+
         setLoading(true);
         await firebaseUser.updateProfile({
             displayName: sampleFormEntity.name
         })
         await database.ref("SIGNUP_REQUESTS").child(firebaseUser.uid).set({...sampleFormEntity, UID: firebaseUser.uid});
         setLoading(false);
+        history.push('meet-team', {type:"SHOW_REAL"})
         alert("Profile Saved");
      } 
 
@@ -117,6 +129,7 @@ const SignupScreen = () => {
             const URLSnapshot = await storage.ref("PROFILE_PICTURE").child(firebaseUser.uid).put(fileList[0]);
             setSampleFormEntity({...sampleFormEntity, profilePictureUrl: await URLSnapshot.ref.getDownloadURL()})
             setUploadingPicture(false);
+            
         }
      }
 
@@ -152,17 +165,38 @@ const SignupScreen = () => {
     }
 
 
-    //signup
+
+
+    
     return(
         <div className='signup-container'>
             <div className='status-bar-container'>
-                <p className='enter-details-label'>Enter details to create your account</p>
+
+                {
+                    fetching
+                    ?
+                    <AiOutlineLoading3Quarters lassName='enter-details-label' />
+                    :
+                    <p className='enter-details-label'>{` ${sampleFormEntity.name?"Hello "+sampleFormEntity.name:"Create your profile"}`}</p>
+                }
+                
+                
+                <div className='title-bar-container'>
+                <div className='profile-details meet-team' onClick={() => {history.push('meet-team', {type:"SHOW_REAL"})}}>
+                    <RiTeamLine className='profile-icon' color="#444" size={23} />
+                    <p className='email-text'>Meet the Team</p>
+                    {/* <AiOutlinePause className='profile-icon' color="#bababa" size={23} style={{marginRight:10, cursor:'default'}} />    */}
+                </div>
+
+               
+                
                 <div className='profile-details'>
                     <CgProfile className='profile-icon' color="#444" size={23} />
                     <p className='email-text'>{sampleFormEntity.emailId}</p>
                     <AiOutlineLogout className='profile-icon' color="#444" size={23} onClick={() => {auth.signOut(); history.replace("onboard")}} />
-
                 </div>
+                </div>
+                
             </div>
 
            
@@ -203,7 +237,7 @@ const SignupScreen = () => {
                    
                     <InputComponent value={sampleFormEntity.experience} onChange={(event) => {setSampleFormEntity({...sampleFormEntity, experience:event.target.value})}}  tag="Experience" style={{marginLeft:30, marginRight:30}}  />
                     <InputComponent value={sampleFormEntity.education} onChange={(event) => {setSampleFormEntity({...sampleFormEntity, education:event.target.value})}}  tag="Education" style={{marginLeft:30, marginRight:30}}   />
-                    <InputComponent tag="Job title" viewType="DROP_DOWN" value={sampleFormEntity.jobTitle} onChange={(event) => {setSampleFormEntity({...sampleFormEntity, jobTitle:event.target.value})}} items={["Content Writer","ML Developer","Psychology/Mental Health Awareness","IT Developer","Psychology Counselors","Doctors", "Psychology Content Writer","Psychologist","Psychiatrist","Social Counselor","Mental Health Nurse","Student Mental Health Nurse","Community Mental health Counselor","Other"]} style={{marginLeft:30, marginRight:30}} />
+                    <InputComponent tag="Job title" viewType="DROP_DOWN" value={sampleFormEntity.jobTitle} onChange={(event) => {setSampleFormEntity({...sampleFormEntity, jobTitle:event.target.value})}} items={["Content Writer","ML Developer","Psychology/Mental Health Awareness","IT Developer","Psychology Counselor","Doctor", "Psychology Content Writer","Psychologist","Psychiatrist","Social Counselor","Mental Health Nurse","Student Mental Health Nurse","Community Mental health Counselor","Other"]} style={{marginLeft:30, marginRight:30}} />
                     {
                         sampleFormEntity.jobTitle === "Other"
                         ?
@@ -273,10 +307,12 @@ const SignupScreen = () => {
                         <VscLoading color="white" size={23} />
                     </div>
                     :
-                    <button className='submit-button submit-profile' onClick={handleSubmit} >Submit</button>
+                    <button className='submit-button submit-profile' onClick={handleSubmit} >Save profile</button>
                 }
 
                 
+
+              
                
               
 
