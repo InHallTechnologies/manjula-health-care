@@ -17,7 +17,7 @@ import iAmNext from '../../assets/user.png';
 const MeetTheTeam = ({location}) => {
    
     
-    const [category, setCategory] = useState(["All","Team","Content Writer","ML Developer","Psychology/Mental Health Awareness","IT Developer","Psychology Counselor","Doctor", "Psychology Content Writer","Psychologist","Psychiatrist","Social Counselor","Mental Health Nurse","Student Mental Health Nurse","Community Mental health Counselor"])
+    const [category, setCategory] = useState([])
     // const majorCategories = ["Content Writer","ML Developer","Psychology/Mental Health Awareness","IT Developer","Psychology Counselors","Doctors", "Psychology Content Writer","Psychologist","Psychiatrist","Social Counselor","Mental Health Nurse","Student Mental Health Nurse","Community Mental health Counselor"];
     const [selectedTab, setSelectedTab] = useState("All");
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -28,9 +28,17 @@ const MeetTheTeam = ({location}) => {
     const [firebaseUser, setFirebaseUser] = useState(firebase.auth().currentUser);
 
     useEffect(() => {
-        if (selectedTab === "Your Profile"){
+        if (selectedTab === "My Profile"){
             return;
         }
+
+        var list = []
+        if(firebaseUser && firebaseUser.email === "admin@admin.com"){
+            list = ["All","Team","Content Writer","ML Developer","Psychology/Mental Health Awareness","IT Developer","Psychology Counselor","Doctor", "Psychology Content Writer","Psychologist","Psychiatrist","Social Counselor","Mental Health Nurse","Student Mental Health Nurse","Community Mental health Counselor"];
+        }else{
+            list = ["All","Content Writer","ML Developer","Psychology/Mental Health Awareness","IT Developer","Psychology Counselor","Doctor", "Psychology Content Writer","Psychologist","Psychiatrist","Social Counselor","Mental Health Nurse","Student Mental Health Nurse","Community Mental health Counselor"];            
+        }
+        setCategory(list)
 
         
         database.ref("SIGNUP_REQUESTS").once('value', (dataSnapshot) => {
@@ -101,8 +109,9 @@ const MeetTheTeam = ({location}) => {
             const users = [];
             setLoading(true);
             setNothingToShow(false);
+            setSelectedTab("My Profile");
             if (dataSnapshot.exists()){
-                setSelectedTab("Your Profile");
+                
                 const USER = dataSnapshot.val();
                 users.push(USER);
 
@@ -121,7 +130,7 @@ const MeetTheTeam = ({location}) => {
         <div className='meet-the-team-container'>
             <div className='title-bar-container'>
                 <IoArrowBack className='back-button' color="#444" size={24} onClick={() => {history.goBack()}}  />
-                <p className='meet-team-label'>Meet The Team</p>
+                <p className='meet-team-label' onClick={() => {setSelectedTab("All")}} >Meet The Team</p>
 
                 {
                     firebaseUser
@@ -132,7 +141,7 @@ const MeetTheTeam = ({location}) => {
                 {
                     firebaseUser
                     &&
-                    <p className='your-profile-label' onClick={handleYourProfile} >Your Profile</p>
+                    <p className='your-profile-label' onClick={handleYourProfile} >My Profile</p>
                 }
                 
                 

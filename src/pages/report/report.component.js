@@ -57,6 +57,7 @@ const ReportScreen = props => {
     return(
         <div className='report-container'>
             <NavigationBar />
+            <h2 className='slogan'>Capture your moment! Send email to unfold the features of this journey.</h2>
             <div className='title-container'>
                 <FaThumbsUp color="#72b198" size="40" className='thumbs-up' />
                 <p className='title'>Your <span style={{color:'#72b198'}}>MyndsCare</span> health and your contributions are greatly benefitting your overall health!<br/>Keep up the good work!</p>

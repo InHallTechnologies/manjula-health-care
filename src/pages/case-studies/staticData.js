@@ -1,8 +1,8 @@
 const staticData =  [
     {
         title:"India didn't prioritize mental health before Covid-19. Now it's paying the price.",
-        author:"Dr. Mehmet Oz",
-        referencedBy:"Dr. Michael Roizen",
+        author:"Dr. Chauhan",
+        referencedBy:"Dr. Usha",
         content:<div>
             <p>"My heartbeats are heavy. It becomes difficult to catch my breath. My hands shake and get sweaty," said Aritri Paul of the terrifying panic attacks that strike more frequently since India went into coronavirus lockdown in March. </p>
             <p>India's government started easing the most severe restrictions on daily life in June, but the effects of the lockdown on residents' mental health are still emerging, as the country battles one of the most severe Covid-19 outbreaks in the world. India now has over 4.2 million cases of the virus, giving it the second-highest tally of recorded cases globally, only behind the Unites States.</p>
@@ -34,8 +34,8 @@ const staticData =  [
     },
     {
         title:"What Is Postpartum Depression",
-        author:"Dr. Mehmet Oz",
-        referencedBy:"Dr. Michael Roizen",
+        author:"Dr. Vijay",
+        referencedBy:"Dr. Ramesh",
         content:<div>
             <p>Postpartum depression (PPD) is clinical depression that occurs following childbirth. It is characterized by symptoms that include sadness, irritability, difficulty bonding with your baby, insomnia, and loss of appetite. While it can be very serious, it is treatable and very common. In fact, the Centers for Disease Control Prevention report that approximately 1 in 8 women experience postpartum depression.</p>
             <br/>
@@ -60,8 +60,8 @@ const staticData =  [
     },
     {
         title:"Postpartum Blues or Postpartum Depression",
-        author:"Dr. Mehmet Oz",
-        referencedBy:"Dr. Michael Roizen",
+        author:"Dr. Shrivastava",
+        referencedBy:"Dr. Verma",
         content:<div>
             <p>Having a baby is a monumental, transformative moment in life. Your body has just spent nine months growing and gestating new life, which is no small task and can take a major toll on your body and mind. You labored and birthed your baby, which is one of the most intense physical experiences your body will ever endure.</p>
             <p>Then, suddenly, you have a baby, and even if your baby is everything you ever dreamed of, it’s a huge change to welcome a new baby into your life—not to mention the fact that you are likely functioning on very little sleep, your hormones are ebbing and flowing all over the place, your eating habits have likely changed drastically, and your emotional state is rapidly adjusting to the reality of parenting your baby.</p>
@@ -72,8 +72,8 @@ const staticData =  [
     },
     {
         title:"Symptoms of Postpartum Blues",
-        author:"Dr. Mehmet Oz",
-        referencedBy:"Dr. Michael Roizen",
+        author:"Dr. Vijay",
+        referencedBy:"Dr. Usha",
         content:<div>
             <p>Every new mom experiences postpartum blues in their own way, but there are some symptoms that are common, such as:</p>
             <ul><li>Anxiety</li>
@@ -105,8 +105,8 @@ const staticData =  [
    
     {
         title:"How to Cope With Postpartum Blues",
-        author:"Dr. Mehmet Oz",
-        referencedBy:"Dr. Michael Roizen",
+        author:"Dr. Kalpana",
+        referencedBy:"Dr. Mahesh",
         content:<div>
             <p>Just because postpartum blues are normal and symptoms are generally mild and temporary doesn’t mean that it’s easy to endure. Here’s how to cope if your postpartum blues are bringing you down:</p>
             <ul><li>Assure yourself that what you are feeling is normal and has been experienced by almost all new mommies.</li>

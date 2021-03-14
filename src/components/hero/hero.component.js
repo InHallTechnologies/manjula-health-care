@@ -119,7 +119,7 @@ const HeroComponent = (props) => {
   return (
     <div className="hero-container">
       <div className="search-container">
-        <h2 className="hero-message">Maternal Image Based Progress Detector</h2>
+        <h2 className="hero-message">Capture your moment! Send email to unfold the features of this journey.</h2>
         <div className="search">
           <input className="search-bar" type="text" placeholder="Search here" />
           <button className="search-button">Search</button>

@@ -45,7 +45,7 @@ const NavigationBar = ({ location, }) => {
 
   return (
     <div className="navigation-container">
-      {/* {redirects.to ? <Redirect to={redirects.to} /> : null} */}
+      {redirects.to ? <Redirect to={redirects.to} /> : null}
       <img  src={logo} alt='logo' className="logo"/>
       <div className="hamburger-container">
 
@@ -81,7 +81,8 @@ const NavigationBar = ({ location, }) => {
               <p
                 className="nav-item"
                 onClick={() => {
-                  setRedirects({ ...redirects, to: "/" });
+                  setRedirects({ ...redirects, to: "/care" });
+                  
                 }}
               >
                 Home
@@ -103,7 +104,8 @@ const NavigationBar = ({ location, }) => {
         <p
           className="nav-item"
           onClick={() => {
-            setRedirects({ ...redirects, to: "/" });
+            setRedirects({ ...redirects, to: "/care" });
+            
           }}
         >
           Home
