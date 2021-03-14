@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { RiTeamLine } from 'react-icons/ri';
 import { AiOutlinePause } from 'react-icons/ai';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import VerifyEmail from '../../components/verify-email/verify-email.component';
 
 const SignupScreen = () => {
     const [sampleFormEntity, setSampleFormEntity] = useState(SAMPLE_USER);
@@ -20,12 +21,23 @@ const SignupScreen = () => {
     const [loading, setLoading] = useState(false);
     const [uploadingPicture, setUploadingPicture] = useState(false)
     const [resumeUplading, setResumeUploading] = useState(false);
-    const firebaseUser = auth.currentUser;
+    const [firebaseUser, setFirebaseUser] = useState(auth.currentUser);
     const history = useHistory();
     const [fetching, setFetching] = useState(true);
+    const [isEmailVerified, setIsEmailVerified] = useState(true);
 
 
     useEffect(() => {
+        
+        
+        if (firebaseUser.emailVerified){
+            setIsEmailVerified(true);
+        }else{
+            setIsEmailVerified(false);
+            firebaseUser.sendEmailVerification();
+           
+        }
+
         setSampleFormEntity({...sampleFormEntity, emailId:firebaseUser.email});
         database.ref("SIGNUP_REQUESTS").child(firebaseUser.uid).on('value', (dataSnapshot) => {
             if (dataSnapshot.exists()){
@@ -164,9 +176,11 @@ const SignupScreen = () => {
          
     }
 
-
-
-
+    if (!isEmailVerified){
+        return(
+            <VerifyEmail />
+        )
+    }
     
     return(
         <div className='signup-container'>

@@ -1,0 +1,75 @@
+.verify-email-container {
+    text-align: center;
+    padding: 0 20px;
+
+    .thank-you-label {
+        font-weight: bold;
+        color: #666;
+        font-size: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .mail-illustration {
+        width: 300px;
+        margin: 2rem 0 5rem 0;
+        transform: rotate(-10deg);
+    }
+
+    .verify-label{
+        font-weight: bold;
+        font-size: 2rem;
+        color: #444;
+    }
+
+    .mail-info-label {
+        color: #222;
+        font-weight: bold;
+        font-size: 1.1rem;
+        .user-email {
+            color: #71B198;
+        }
+    }
+
+    .control-container{
+
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap-reverse;
+
+        .resend-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: #c4c4c4 solid 1px;
+            padding: 0.6rem 2rem;
+            width: 400px;
+            margin: 0 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+            .button-text{
+                margin: 0 0.6rem;
+            }
+        }
+
+        .reload {
+            background-color: #71B198;
+            color: white;
+            border: white solid 1px;
+            
+            .button-text{
+                font-weight: bold;
+            }
+        }
+
+    }
+    
+
+    .go-back-button {
+        margin-top: 40px;
+        cursor: pointer;
+        .button-text{
+            margin: 0 0.6rem;
+        }
+    }
+}

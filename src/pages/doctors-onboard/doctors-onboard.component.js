@@ -75,6 +75,30 @@ const DoctorsOnboard = (props) => {
     }
   }
 
+  const handleForgotPassword = async () =>{
+    if (credentials.emaild){
+      try{
+        await auth.sendPasswordResetEmail(credentials.emaild);
+        alert("A reset password link is sent to your email id. Please click on the link to reset your password.")
+      }catch(err){
+        switch(err.code){
+          case 'auth/invalid-email':{
+            alert('Please enter a valid email id.');
+            break;
+          }
+          case "auth/user-not-found":{
+            alert("No account found for this email address. Please enter a different email id or create account to continue.");
+            break
+          }
+        }
+      }
+     
+    }else{
+      alert("Please enter your registered email id.");
+    }
+   
+  }
+
   const handleTNCClicked = () => {
     window.open("https://firebasestorage.googleapis.com/v0/b/health-wealth-a6ae7.appspot.com/o/TNC%2FTerms%20of%20Service%C2%B7Privacy%20Policy.pdf?alt=media&token=507c8dac-4573-4120-bda4-d09c99b89386")
   }
@@ -96,11 +120,19 @@ const DoctorsOnboard = (props) => {
           {
             !loading
             ?
-            <button onClick={currentOption==="LOGIN"?handleLogin:handleSignup} className='login-button submit-button'>{currentOption==="LOGIN"?"Login":"Create Account"}</button>
+            <button onClick={currentOption==="LOGIN"?handleLogin:handleSignup} className='login-button'>{currentOption==="LOGIN"?"Login":"Create Account"}</button>
             :
             <div className='submit-button login-button '>
               <VscLoading color='white' size='20' />
             </div>
+          }
+          
+          {
+            currentOption === "LOGIN"
+            ?
+            <p className='forgot-password-label' onClick={handleForgotPassword} >Forgot Password?</p>
+            :
+            null
           }
           
           {

@@ -11,8 +11,6 @@ const HomePage = (props) => {
             <NavigationBar  />
             <HeroComponent />
 
-          
-
             {/* <FAQ /> */}
 
             {/* <div className='footer'>

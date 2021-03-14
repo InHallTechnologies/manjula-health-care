@@ -36,6 +36,18 @@
             .login-button {
                 margin-top: 2rem;
                 align-self: center;
+                padding: 0.7rem 1rem;
+                cursor: pointer;
+                width: 230px;
+                background-color: #5a8a86;
+                border: none;
+                border-radius: 10px;
+                font-weight: bold;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
             }
 
             .signup-button {
@@ -45,6 +57,11 @@
                 margin-top: 10px;
                 font-weight: bold;
                 user-select: none;
+            }
+            .forgot-password-label {
+                text-align: center;
+                cursor: pointer;
+                font-weight: bold;
             }
 
             

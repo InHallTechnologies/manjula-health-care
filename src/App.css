@@ -3,7 +3,8 @@ html {
   margin:0;
   box-sizing: border-box;
   color: #010101;
-  font-family: 'Karla', sans-serif;
+  /* font-family: 'Karla', sans-serif; */
+  font-family: 'Nunito', sans-serif;
 }
 .submit-button {
   margin: 1.5rem 0.6rem;
