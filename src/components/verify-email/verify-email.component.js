@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './verify-email.styles.scss';
 import illustration from '../../assets/sendmail.svg'
 import { auth } from '../../firebase/firebase-handler';
 import { RiMailSendLine } from 'react-icons/ri';
 import { FiRefreshCcw } from 'react-icons/fi';
 import { useHistory } from 'react-router';
+import { Snackbar } from '@material-ui/core'
 
 const VerifyEmail = () => {
     const { currentUser } = auth;
     const history = useHistory();
+    const [snackBarMessage, setShowSnackbarMessage] = useState(""); 
 
     const handleResendEmail = async () =>{
-        var actionCodeSettings = {
-            // URL you want to redirect back to. The domain (www.example.com) for this
-            // URL must be in the authorized domains list in the Firebase Console.
-            url: 'http://localhost:3000/signup',
-            // This must be true.
-            handleCodeInApp: true,
-          };
-        await currentUser.sendEmailVerification();
-        alert("Verification email sent again");
+        
+        try{
+            await currentUser.sendEmailVerification();
+            
+            setShowSnackbarMessage("Verification email sent again.")
+            setTimeout(() => {
+                setShowSnackbarMessage("")
+            }, 3000);
+        }catch(err){
+            setShowSnackbarMessage("Too many requests. Please wait for a while before trying again.");
+            setTimeout(() => {
+                setShowSnackbarMessage("")
+            }, 3000);
+        }
+       
     }
 
     const handleGoBack = async () =>{
@@ -58,6 +66,14 @@ const VerifyEmail = () => {
             <div className='go-back-button' onClick={handleGoBack} >
                 <p className='button-text'>Login with a different email</p>
             </div>
+
+            <Snackbar 
+            open={snackBarMessage?true:false}
+            message={snackBarMessage}
+            autoHideDuration={3000}
+            color="#5a8a86"
+            severity="error"
+          />
 
         </div>
     )

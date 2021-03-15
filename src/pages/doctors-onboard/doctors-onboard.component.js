@@ -6,12 +6,14 @@ import { auth } from "../../firebase/firebase-handler";
 import { VscLoading } from 'react-icons/vsc'
 import { useHistory } from "react-router-dom";
 import { RiTeamLine } from 'react-icons/ri';
+import { Snackbar } from '@material-ui/core'
 
 const DoctorsOnboard = (props) => {
   const [credentials, setCredentials] = useState({emaild:"", password:''})
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const [currentOption, setCurrentOption] = useState("LOGIN");
+  const [snackBarMessage, setShowSnackbarMessage] = useState(""); 
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -31,11 +33,20 @@ const DoctorsOnboard = (props) => {
        
       }catch(err){
         if (!credentials.emaild){
-          alert("Please enter a valid email Id");
+          setShowSnackbarMessage("Please enter a valid email Id")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
         }else if (!credentials.password){
-          alert("Please enter your password");
+          setShowSnackbarMessage("Please enter your password")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
         }else{
-          alert(err)
+          setShowSnackbarMessage("Invalid credentials")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
         }
         setLoading(false);
       }
@@ -53,11 +64,20 @@ const DoctorsOnboard = (props) => {
         
       }catch(err){
         if (!credentials.emaild){
-          alert("Please enter a valid email Id");
+          setShowSnackbarMessage("Please enter a valid email Id")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
         }else if (!credentials.password){
-          alert("Please enter your password");
+          setShowSnackbarMessage("Please enter your password")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
         }else{
-          alert(err)
+          setShowSnackbarMessage(err.message)
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
         }
         setLoading(false);
       }
@@ -79,22 +99,38 @@ const DoctorsOnboard = (props) => {
     if (credentials.emaild){
       try{
         await auth.sendPasswordResetEmail(credentials.emaild);
-        alert("A reset password link is sent to your email id. Please click on the link to reset your password.")
+        setShowSnackbarMessage("A reset password link is sent to your email id. Please click on the link to reset your password.")
+        setTimeout(() => {
+          setShowSnackbarMessage("")
+        }, 5000);
       }catch(err){
         switch(err.code){
           case 'auth/invalid-email':{
-            alert('Please enter a valid email id.');
-            break;
+            
+          setShowSnackbarMessage("Please enter a valid email id.")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 3000);
+            
+          break;
           }
           case "auth/user-not-found":{
-            alert("No account found for this email address. Please enter a different email id or create account to continue.");
+          
+          setShowSnackbarMessage("No account found for this email address. Please enter a different email id or create account to continue.")
+          setTimeout(() => {
+            setShowSnackbarMessage("")
+          }, 5000);
+
             break
           }
         }
       }
      
     }else{
-      alert("Please enter your registered email id.");
+      setShowSnackbarMessage("Please enter your registered email id.")
+      setTimeout(() => {
+        setShowSnackbarMessage("")
+      }, 3000);
     }
    
   }
@@ -147,6 +183,14 @@ const DoctorsOnboard = (props) => {
           <div className='tnc-container'>
               <p className='tnc-label'>By continuing you agree to our <br/><span className='tnc' onClick={handleTNCClicked}>Terms & Condition and Privacy Policy</span> </p>
           </div>
+
+          <Snackbar 
+            open={snackBarMessage?true:false}
+            message={snackBarMessage}
+            autoHideDuration={3000}
+            color="#5a8a86"
+            severity="error"
+          />
          
         </div>
       </div>

@@ -15,6 +15,7 @@ import DoctorsOnboard from './pages/doctors-onboard/doctors-onboard.component';
 import LandingPage from './pages/landing-page/landing-page.component';
 import SignupScreen from './pages/signup/signup.component';
 import MeetTheTeam from './pages/meet-the-team/meet-the-team.component';
+import { Snackbar } from '@material-ui/core';
 
 const App = props => {
 

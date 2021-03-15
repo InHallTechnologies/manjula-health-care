@@ -12,6 +12,7 @@ import SAMPLE_USER from '../../enteties/sampleUser';
 import usha from '../../assets/usha.jpg';
 import rahul from '../../assets/rahul.jpg'
 import iAmNext from '../../assets/user.png';
+import { BsSearch } from 'react-icons/bs';
 
 
 const MeetTheTeam = ({location}) => {
@@ -22,6 +23,8 @@ const MeetTheTeam = ({location}) => {
     const [selectedTab, setSelectedTab] = useState("All");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [nothingToShow, setNothingToShow] = useState(false);
+    // const [searchQuery, setSearchQuery] = useState('');
+    const [allUsersBase, setAllUsersBase] = useState([]);
     const [loading, setLoading] = useState(true);
     const history = useHistory()
     const categoryRef = useRef();
@@ -80,6 +83,7 @@ const MeetTheTeam = ({location}) => {
                         
                     }
                     setSelectedUsers(users);
+                    setAllUsersBase(users);
                    
                 }
             }else {
@@ -88,6 +92,7 @@ const MeetTheTeam = ({location}) => {
                 const DUMMY3 = {...SAMPLE_USER, name:"Your Profile",jobTitle:"Passionate Personality", profilePictureUrl: iAmNext };
                 
                 setSelectedUsers([DUMMY1, DUMMY2, DUMMY3])
+                setAllUsersBase([DUMMY1, DUMMY2, DUMMY3])
                 setLoading(false)
 
             }
@@ -125,6 +130,15 @@ const MeetTheTeam = ({location}) => {
         })
     }
 
+    const handleSearch = (event) => {
+       const { value } = event.target;
+       setSelectedTab("All");
+       const filteredData = allUsersBase.filter((user) => {
+           return user.jobTitle.toLowerCase().includes(value.toLowerCase()) || user.name.toLowerCase().includes(value.toLowerCase())
+       });
+       setSelectedUsers(filteredData)
+    }
+
     
     return(
         <div className='meet-the-team-container'>
@@ -144,6 +158,10 @@ const MeetTheTeam = ({location}) => {
                     <p className='your-profile-label' onClick={handleYourProfile} >My Profile</p>
                 }
                 
+                <div className='search-container'>
+                    <BsSearch className='search-icon' color="#777" size={17} />
+                    <input className='search-input' placeholder="Search by Job Title or Name" onChange={handleSearch} />
+                </div>
                 
             </div>
 
