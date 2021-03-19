@@ -10,12 +10,6 @@ const HomePage = (props) => {
         <div className='home-container'>
             <NavigationBar  />
             <HeroComponent />
-
-            {/* <FAQ /> */}
-
-            {/* <div className='footer'>
-                
-            </div> */}
         </div>
     )
 }

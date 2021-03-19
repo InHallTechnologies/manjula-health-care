@@ -15,7 +15,8 @@ import DoctorsOnboard from './pages/doctors-onboard/doctors-onboard.component';
 import LandingPage from './pages/landing-page/landing-page.component';
 import SignupScreen from './pages/signup/signup.component';
 import MeetTheTeam from './pages/meet-the-team/meet-the-team.component';
-import { Snackbar } from '@material-ui/core';
+import { Backdrop, CircularProgress } from '@material-ui/core';
+
 
 const App = props => {
 
@@ -40,9 +41,10 @@ const App = props => {
   }, []);
 
   if (loading){
+
     return(
-      <div style={{width:"100vw", height:'100vh', backgroundColor:'white', margin:0, display:'flex', justifyContent:'center', alignItems:'center'}}>
-        <VscLoading color="#72b198" size="90"  />
+      <div style={{width:"100vw", height:'100vh', backgroundColor:'rgba(0,0,0,0.1)', margin:0, display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <CircularProgress color="#5a8a86" />
       </div>
     )
 

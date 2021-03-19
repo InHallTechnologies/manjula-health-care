@@ -6,27 +6,25 @@
         position: absolute;
         .video-player{
             width: 100%;
-            height: 100vh;
+            height: 1000px;
             object-fit: cover;
         }
     }
 
     .action-container {
-        height: 100vh;
+        height: 1000px;
         width:40%;
         position: relative;
-        .bg-curve {
-            height: 100vh;
-            z-index: -1;
-            top:0;
-            left: 0;
-            z-index: -1;
-            position: absolute;
-        }
+        
         .get-started-container {
-            padding: 0 2rem;
+           
             z-index: 13;
             width: 100%;
+            background-color: #eaeaea70;
+            height: 100%;
+            
+            clip-path: polygon(0 0, 100% 0, 62% 100%, 0% 100%);
+            padding-left: 70px;
             .logo {
                 margin-top: 7rem;
                 z-index: 20;
@@ -37,12 +35,299 @@
                 font-size: 2rem;
                 z-index: 20;
                 margin-top: 4rem;
+              
             }
             .get-started {
                 
               border: none;
                 margin-top: 4rem;
                 padding: 1rem 4rem
+            }
+        }
+    }
+
+
+    .second-section {
+        background-color: white;
+        text-align: center;
+        .ss-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+            margin-top: 3rem;
+            padding:0 1rem;
+        }
+
+        .ss-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            justify-items: center;
+            .ss-list-item {
+                display: flex;
+                width: 200px;
+                margin-top: 5rem;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .ss-list-img {
+                    width: 120px;
+                }
+                .ss-list-title {
+                    font-weight: bold;
+                }
+            }
+        }
+        .ss-bottom-img {
+            width: 90%;
+            margin-top: 7rem;
+           
+        }
+    }
+
+
+    .third-screen-container {
+        background-image: url('../../assets//third-section-bg.png');
+        padding-bottom: 3rem;
+        .ts-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+            padding:0 1rem;
+            padding-top: 4rem;
+           
+        }
+
+        .ts-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            justify-items: center;
+            .ts-list-item {
+                display: flex;
+                width: 200px;
+                margin-top: 5rem;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .ts-list-img {
+                    width: 190px;
+                }
+                .ts-list-title {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .fourth-screen-container {
+        background-image: url('../../assets/holding-hands.png');
+        padding:7rem;
+       .center-content {
+            padding:50px 30px;
+            display: grid;
+            
+            background-color: whitesmoke;
+            border-radius: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+           .person-container {
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               flex-direction: column;
+               margin: 40px;
+               .person-img{
+                    width: 150px;
+                    border-radius: 100px;
+                    height: 150px;
+                    object-fit: cover;
+               }
+               .person-name {
+                    font-weight: bold;
+                    margin: 0;
+                    margin-top: 10px;
+               }
+           }
+       } 
+    }
+
+
+    .fifth-screen-container {
+       display: flex;
+        
+        .abous-us-illus {
+            height: 500px;
+            object-fit: cover;
+        }
+        .about-us-content {
+            margin-left: 20px;
+            .fifth-section-title {
+                font-weight: bold;
+                font-size: 2rem;
+                padding-top: 0.5rem;   
+                
+            }
+            .tagline-one {
+                font-size: 1.6rem;
+                color: #333;
+                
+            }
+            .tagline-def {
+                font-size: 1.2rem;
+                margin-top: 2rem;
+                
+            }
+            .tagline{
+                margin-top: 3.4rem;
+               ;
+                .quotes {
+                    font-size: 1.2rem;
+                    font-style: italic;
+                }
+                .quote-author {
+                    font-style: italic;
+                }
+            }
+        }
+    }
+
+    .download-now-container {
+        background-color: #FDFEF7;
+        .download-links-title{
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+           margin: 0;
+            padding:0 1rem;
+            padding-top: 30px;
+            margin-bottom: 30px;
+        }
+        .download-links-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding-bottom: 30px;
+            flex-wrap: wrap;
+            
+            .play-store {
+                margin: 10px 20px;
+            }
+            .apple-store{
+                margin: 10px 20px;
+            }
+        }
+    }
+
+    .sixth-section-container {
+        background-image: url('../../assets/fifth-bg.png');
+        padding:0 2rem 3rem 2rem;
+        color: whitesmoke;
+        .sixth-section-title {
+            
+            font-weight: bold;
+            font-size: 2rem;
+            margin: 0;
+            padding-top: 3rem;
+        }
+        .contact-us-label{
+            font-size: 1.6rem;
+            color: white;
+            margin-top: 4rem;
+            font-weight: bold;
+        }
+        .sixth-section-tagline{
+            font-size: 1.2rem;
+            color: rgb(243, 243, 243);
+            margin-top: 0rem;
+            font-weight: bold;
+        }
+        .contact-us-button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color :#5a8a86;
+            padding:10px;
+            border-radius: 10px;
+            width: 300px;
+            justify-content: center;
+            cursor: pointer;
+            margin-top: 2rem;
+            .contact-us-email {
+                margin: 0 10px;
+                color: white;
+               
+            }
+        }
+    }
+
+    .rights-reserved-container {
+        background-color: #FDFEF7;
+      
+        .all-rights-reserved {
+            font-weight: bold;
+            margin: 0;
+            padding:10px 30px;
+        }
+    }
+}
+
+@media(max-width:1010px) {
+    .landing-page-container {
+        .action-container {
+            height: 1000px;
+            width:100%;
+           
+            .get-started-container {
+               
+               
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                padding-left: 0;
+                .logo {
+                    margin-top: 7rem;
+                    z-index: 20;
+                }
+                .headlines {
+                    width: 100%;
+                    color: #442F3A;
+                    font-size: 2rem;
+                    z-index: 20;
+                    margin-top: 4rem;
+                  
+                }
+                .get-started {
+                  border: none;
+                    padding: 1rem 4rem;
+                    margin: 5rem auto;
+                }
+            }
+        }
+    }
+
+}
+
+@media(max-width:906px){
+    .landing-page-container {
+        .fifth-screen-container {
+            display: flex;
+            flex-direction: column;
+            .abous-us-illus {
+                width: 100%;
+            }
+            .about-us-content {
+                width: 90%;
+                padding-bottom: 4rem;
+            }
+        }
+    }
+}
+
+@media(max-width:524px){
+    .landing-page-container {
+        .fourth-screen-container {
+            padding: 0 10px;
+            background-color: darkgreen;
+            padding-bottom: 20px;
+            .center-content {
+                padding:25px 15px;
             }
         }
     }
