@@ -31,8 +31,8 @@ const LandingPage = (props) => {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-
-    setSnackBarMessage("Copy to clipboard");
+    window.location.href = "mailto:info@eazynurture.com";
+    setSnackBarMessage("Copy to clipboard: info@eazynurture.com");
     setTimeout(() => {
       setSnackBarMessage("");
     }, 3000);
@@ -54,7 +54,7 @@ const LandingPage = (props) => {
           <p className="headlines">
             Passionate Community Providing Brain Health Support and Care for Mother, Child and Family
           </p>
-          <button className="get-started submit-button" onClick={() => {history.push('care')}} >Get Started</button>
+          <button className="get-started submit-button" onClick={() => {history.push('contact-us')}} >Get Started</button>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ const LandingPage = (props) => {
 
       {/* Third Screen */}
       <div className='third-screen-container'>
-        <p className='ts-title'>Listen to new meditations,contents everyday that are relevant to your world</p>
+        <p className='ts-title'>Listen to new meditations, contents everyday that are relevant to your world</p>
         <div className='ts-list-container'>
           {
             thirdSection.map(({title, icon, id}) => {
@@ -103,6 +103,7 @@ const LandingPage = (props) => {
                     <div className='person-container' key={id}>
                       <img className='person-img' src={icon} alt={name} />
                       <p className='person-name' >{name}</p>
+                      <p style={{margin:0, marginTop:"5px"}}>Therapist</p>
                     </div>
                   )
                 })
@@ -116,8 +117,8 @@ const LandingPage = (props) => {
           <div className='about-us-content'>
               <p className='fifth-section-title'>About Us</p>
               <p className='tagline-one'>Community Service team to empower every woman to her right of personal counselors</p>
-              <p className='tagline-def'>Contact us for free counselling and detailed demo of the service.  This is for women by the women community</p>
-              <p className='tagline'><span className='quotes'>{'" '}</span>To all the little girls who are watching this, never doubt that you are valuable and powerful, and deserving of every chance and opportunity in the world to pursue and achieve your own dreams.<span className='quotes'> "</span> <span className='quote-author'> -- Hillary Clinton</span></p>
+              <p className='tagline-def'>Contact us for free counselling and detailed demo of the service.  This is for women by the women community.</p>
+              <p className='tagline'><span className='quotes'>{'" '}</span>With each generation, women’s ability to live the lives they choose reaches a place their grandmothers never thought possible. But that doesn’t mean everything is perfect or that our work is finished.<span className='quotes'> "</span> <span className='quote-author'> -- Cathy McMorris Rodgers</span></p>
           </div>
       </div>
 
@@ -145,7 +146,7 @@ const LandingPage = (props) => {
       </div>
 
       <div className='rights-reserved-container'>
-        <p className='all-rights-reserved'>All Rights Reserved</p>
+        <p className='all-rights-reserved'>&#169; Copyright 2021. All Rights Reserved.</p>
         
       </div>
 

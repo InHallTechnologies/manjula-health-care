@@ -41,7 +41,25 @@ const InputComponent= ({tag, placeholder, type, onChange, value ,name, style, er
                 
             </div>
         )
-    }else {
+    } else if (viewType === "TEXT_AREA"){
+        return(
+            <div className='custom-input-container' style={style}>
+                {
+                    tag && <p className='tag'>{tag}</p>
+                }
+               
+                <textarea onKeyPress={onKeyPressEvent} className='custom-input text-area' placeholder={placeholder} type={type} onChange={onChange}  value={value} name={name} />
+                {
+                    errorText?
+                    <p className='error-text'>{errorText}</p>
+                    :
+                    null
+                }
+            </div>
+        )
+        
+    } 
+    else {
         return(
             <div className='custom-input-container' style={style}>
                 {

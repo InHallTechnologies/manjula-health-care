@@ -16,6 +16,7 @@ import LandingPage from './pages/landing-page/landing-page.component';
 import SignupScreen from './pages/signup/signup.component';
 import MeetTheTeam from './pages/meet-the-team/meet-the-team.component';
 import { Backdrop, CircularProgress } from '@material-ui/core';
+import ContactUs from './pages/contact-us/contact-us.component';
 
 
 const App = props => {
@@ -23,10 +24,11 @@ const App = props => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [globalState, dispatchForGlobalState] = useContext(Context);
-  
-  useEffect( () => { 
+
+
+  useEffect( () => {
        (() => {
-        auth.onAuthStateChanged((user) => { 
+        auth.onAuthStateChanged((user) => {
           if (user){
             dispatchForGlobalState({type:CONTEXT_TYPES.setUser, payload:{
               name:user.displayName,
@@ -37,7 +39,7 @@ const App = props => {
           }
           setLoading(false);
         })
-       })() 
+       })()
   }, []);
 
   if (loading){
@@ -50,11 +52,11 @@ const App = props => {
 
   }
 
- 
+
   return (
     <div className="App">
       <Switch>
-        <Route path='/' exact component={LandingPage} /> 
+        <Route path='/' exact component={LandingPage} />
         <Route path='/care' exact component={HomePage}/>
         <Route path='/case-studies' exact component={CaseStudies} />
         <Route path='/case-studies/:id' component={CaseStudiesDetails} />
@@ -64,6 +66,7 @@ const App = props => {
         <Route path={'/onboard'} component={DoctorsOnboard}/>
         <Route path={'/signup'}  component={SignupScreen} />
         <Route path={'/meet-team'}  component={MeetTheTeam} />
+        <Route path={'/contact-us'} component={ContactUs} />
       </Switch>
     </div>
   );
